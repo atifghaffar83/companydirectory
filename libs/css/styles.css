@@ -1,0 +1,211 @@
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+font-size: .875rem;
+
+}
+
+a{
+    color: #6C7177;
+}
+i {
+    margin-right: 2.875rem;
+}
+.navbar{
+    background-color: #00B2FF;
+    color: #fff;
+}
+
+.navbar ::placeholder {
+    color: #fff;
+    opacity: 1; /* Firefox */
+  }
+  
+  .navbar :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: #fff;
+  }
+  
+  .navbar ::-ms-input-placeholder { /* Microsoft Edge */
+   color: #fff;
+  }
+
+  .nav-item{
+    color: #fff;
+  }
+  .nav-item:hover{
+    background: #00B2FF;
+    color: #fff;
+  }
+
+  .input-group{
+      margin-bottom: 16px;
+  }
+
+  .hr{
+    height: 1px;
+    border: 0;
+    background-color: #F0F0F0;
+    border-width: 0;
+    
+  }
+
+  .search{
+    width: 375px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    margin-right: 24px;
+    
+  }
+
+  .input-wrapper:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #00B2FF;
+    opacity: 0.2;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 6px;
+    left: 4px;
+}
+
+.form-control{
+    padding-left: 24px;
+}
+
+  .btn{
+    background-color: #00B2FF;
+    color: #fff; 
+    width: 179px;
+    
+  }
+
+  .btn-rgt, .nav-i {
+      margin-right: 7px;
+  }
+
+  .table thead tr th {
+      padding-top: 16px;
+      padding-bottom: 8px ;
+      border-top: 0;
+  }
+
+  .sb-icon-search:before {
+    content: "\f002";
+}
+
+/* dropdown css properties */
+.dropdown{
+    display: inline-block;
+}
+
+.dropdown dd,
+.dropdown dt {
+  margin: 0px;
+  padding: 0px;
+  font-weight: unset;
+}
+
+.dropdown ul {
+  margin: -1px 0 0 0;
+}
+
+.dropdown dd {
+  position: relative;
+  top: 1px;
+}
+
+.dropdown a,
+.dropdown a:visited {
+  color: #fff;
+  text-decoration: none;
+  outline: none;
+  text-align: center;
+  /* font-size: 12px; */
+}
+
+.dropdown dt a {
+  background-color: #00B2FF;
+  display: block;
+  padding: 8px 20px 5px 10px;
+  min-height: 25px;
+  /* line-height: 24px; */
+  overflow: hidden;
+  border: 0;
+  width: 179px;
+  height: 34px;
+}
+
+.dropdown dt a span,
+.multiSel span {
+  cursor: pointer;
+  display: inline-block;
+  /* padding: 0 3px 2px 0; */
+}
+
+.dropdown dd ul {
+  background-color: #00B2FF;
+  border: 0;
+  color: #fff;
+  display: none;
+  left: 0px;
+  padding: 2px 15px 2px 5px;
+  position: absolute;
+  top: 1px;
+  width: 179px;
+  list-style: none;
+  height: 100px;
+  overflow: auto;
+}
+
+.dropdown span.value {
+  display: none;
+}
+
+.dropdown dd ul li a {
+  padding: 5px;
+  display: block;
+}
+
+.dropdown dd ul li a:hover {
+  background-color: #fff;
+}
+
+.dropdown-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 1rem;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-left: .3em solid transparent;
+}
+
+.mutliSelect span{
+    padding-left: 6px;
+}
+/* Filter button */
+.btnfilter{
+    width: 179px;
+    height: 34px;
+    background-color: #00B2FF;
+    color: #fff;
+    border: 0;
+    display: inline-block;
+    margin-left: 3px;
+
+}
+
+.fa-times-circle{
+    display: none;
+    position: relative;
+    bottom: 61px;
+    left: 924px;
+    color: #fff;
+}
