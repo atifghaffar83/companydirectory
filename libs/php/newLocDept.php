@@ -1,5 +1,9 @@
 <?php
 
+	// example use from browser
+	// use insertDepartment.php first to create new dummy record and then specify it's id in the command below
+	// http://localhost/companydirectory/libs/php/deleteDepartmentByID.php?id= <id>
+
 	// remove next two lines for production
 	
 	ini_set('display_errors', 'On');
@@ -29,19 +33,23 @@
 
 	}	
 
-	$query = 'SELECT d.id, d.name as Name, d.locationID as LocationID, l.name as Location FROM department d 
-	LEFT JOIN location l ON (l.id = d.locationID)
-	ORDER BY 2';
+// 1st query getting edit record
+	if($_REQUEST['title'] == "Personnel"){
+		$query = 'SELECT * from department';
+	} else if($_REQUEST['title'] == "Departments"){
+		$query = 'SELECT * from location';
+	}
 
-
+	//$query = 'SELECT * from personnel WHERE id =' . $_POST['id'];
 	$result = $conn->query($query);
-	
+
 	if (!$result) {
 
 		$output['status']['code'] = "400";
 		$output['status']['name'] = "executed";
 		$output['status']['description'] = "query failed";	
 		$output['data'] = [];
+		
 
 		mysqli_close($conn);
 
@@ -50,12 +58,12 @@
 		exit;
 
 	}
-   
-   	$data = [];
+
+	$updateData = [];
 
 	while ($row = mysqli_fetch_assoc($result)) {
 
-		array_push($data, $row);
+		array_push($updateData, $row);
 
 	}
 
@@ -63,7 +71,9 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data'] = $data;
+	//$output['data'] = [];
+	$output['data']['updateData'] = $updateData;
+	
 	
 	mysqli_close($conn);
 

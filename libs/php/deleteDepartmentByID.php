@@ -34,6 +34,7 @@
 	}	
 
 	// $_REQUEST used for development / debugging. Remember to cange to $_POST for production
+	//$_REQUEST['id'] = 17;
 
 	$query = 'DELETE FROM department WHERE id = ' . $_REQUEST['id'];
 

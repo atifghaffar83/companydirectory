@@ -1,7 +1,8 @@
 <?php
 
 	// example use from browser
-	// http://localhost/companydirectory/libs/php/getPersonnel.php?id=1
+	// use insertDepartment.php first to create new dummy record and then specify it's id in the command below
+	// http://localhost/companydirectory/libs/php/deleteDepartmentByID.php?id= <id>
 
 	// remove next two lines for production
 	
@@ -32,20 +33,28 @@
 
 	}	
 
-	
+/* 	$_POST['title'] = "Personnel";
+	$_POST['firstName'] = "kash";
+	$_POST['lastName'] = "kash";
+	$_POST['email'] = "kash@kash.com";
+	$_POST['jobTitle'] = 3;
+	$_POST['departmentID'] = 10;
+	$_POST['id'] = 96; */
+
+
 	if($_POST['title'] == "Personnel"){
-		$query = 'SELECT * from personnel WHERE id =' . $_REQUEST['id'];
+		$query = 'UPDATE personnel SET firstName = "'.$_POST['firstName'].'", lastName = "'.$_POST['lastName'].'", email = "'.$_POST['email'].'", jobTitle = "'.$_POST['jobTitle'].'", departmentID = "'.$_POST['departmentID'].'" WHERE personnel.id = '.$_POST['id'];
 	}
-
+	
 	if($_POST['title'] == "Departments"){
-		$query = 'SELECT * from department WHERE id =' . $_REQUEST['id'];
+		$query = 'UPDATE department SET name = "'.$_POST['name'].'", locationID = "'.$_POST['locationID'].'" WHERE department.id = '.$_POST['id'];
 	}
-
+	
 	if($_POST['title'] == "Locations"){
-		$query = 'SELECT * from location WHERE id =' . $_REQUEST['id'];
+		$query = 'UPDATE location SET name = "'.$_POST['name'].'" WHERE location.id = '.$_POST['id'];
 	}
-	//$query = 'SELECT * from personnel WHERE id =' . $_REQUEST['id'];
-
+	
+	
 	$result = $conn->query($query);
 	
 	if (!$result) {
@@ -54,6 +63,7 @@
 		$output['status']['name'] = "executed";
 		$output['status']['description'] = "query failed";	
 		$output['data'] = [];
+		
 
 		mysqli_close($conn);
 
@@ -62,27 +72,25 @@
 		exit;
 
 	}
-   
-   	$tableRow = [];
-
-	while ($row = mysqli_fetch_assoc($result)) {
-
-		array_push($tableRow, $row);
-
+// second query getting edit record
+	if($_POST['title'] == "Personnel"){
+		$query = 'SELECT * from personnel WHERE id =' . $_POST['id'];
+	} else if($_POST['title'] == "Departments"){
+		$query = 'SELECT * from department WHERE id =' . $_POST['id'];
+	} else if($_POST['title'] == "Locations"){
+		$query = 'SELECT * from location WHERE id =' . $_POST['id'];
 	}
 
-	// second query
-
-	$query = 'SELECT id, name from department ORDER BY id';
-
+	//$query = 'SELECT * from personnel WHERE id =' . $_POST['id'];
 	$result = $conn->query($query);
-	
+
 	if (!$result) {
 
 		$output['status']['code'] = "400";
 		$output['status']['name'] = "executed";
 		$output['status']['description'] = "query failed";	
 		$output['data'] = [];
+		
 
 		mysqli_close($conn);
 
@@ -91,41 +99,12 @@
 		exit;
 
 	}
-   
-   	$department = [];
+
+	$updateData = [];
 
 	while ($row = mysqli_fetch_assoc($result)) {
 
-		array_push($department, $row);
-
-	}
-
-	// third query
-
-	$query = 'SELECT id, name from location ORDER BY id';
-
-	$result = $conn->query($query);
-	
-	if (!$result) {
-
-		$output['status']['code'] = "400";
-		$output['status']['name'] = "executed";
-		$output['status']['description'] = "query failed";	
-		$output['data'] = [];
-
-		mysqli_close($conn);
-
-		echo json_encode($output); 
-
-		exit;
-
-	}
-   
-   	$locations = [];
-
-	while ($row = mysqli_fetch_assoc($result)) {
-
-		array_push($locations, $row);
+		array_push($updateData, $row);
 
 	}
 
@@ -133,9 +112,9 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data']['tableRow'] = $tableRow;
-	$output['data']['departments'] = $department;
-	$output['data']['locations'] = $locations;
+	//$output['data'] = [];
+	$output['data']['updateData'] = $updateData;
+	
 	
 	mysqli_close($conn);
 

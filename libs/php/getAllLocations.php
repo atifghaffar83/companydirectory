@@ -29,10 +29,8 @@
 
 	}	
 
-	$query = 'SELECT d.id, d.name as Name, d.locationID as LocationID, l.name as Location FROM department d 
-	LEFT JOIN location l ON (l.id = d.locationID)
-	ORDER BY 2';
-
+	//$query = 'SELECT id, name, locationID FROM department';
+	$query = 'SELECT id, name as Name FROM location';
 
 	$result = $conn->query($query);
 	
