@@ -11,7 +11,7 @@
 	$cd_host = "sql311.epizy.com";
 	$cd_port = 3306;
 	$cd_socket = "";
-	$cd_user = "root"; // user name
+	$cd_user = "epiz_27518577"; // user name
 	$cd_password = "l95yyjPYbSYlXi"; // password
 	$cd_dbname = "epiz_27518577_XXX"; // database name
 	*/

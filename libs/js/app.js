@@ -181,9 +181,6 @@ const filter = function(){
         
     });
 
-    console.log(department);
-    console.log(location);
-
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
 
@@ -242,7 +239,10 @@ const getAll = function(e){
   let data, navTitle, pageTitle;
   navTitle =  $(this).attr("id");
   let dataNav = $(this).data("id") || e.id;
-  
+  console.log('navTitle');
+  console.log(navTitle);
+  console.log('dataNav');
+  console.log(dataNav);
   switch(dataNav){
     case 'nav-dept':
       url= "./libs/php/getAllDepartments.php";
@@ -251,7 +251,7 @@ const getAll = function(e){
       $(".deptdl").hide();
       $(".locdl").show();
       $(".btnfilter").show();
-
+      
       break;
     case 'nav-loc':
       url= "./libs/php/getAllLocations.php";
@@ -282,7 +282,7 @@ const getAll = function(e){
       <thead>
         <tr class="actHeader">`;
       let rowHeader = results.data.allData[0];
-      console.log(results);
+      
       for (const [key, value] of Object.entries(rowHeader)) {
         //if(!(key == "id")){
           tableResult += `<th ${key == "id"?"hidden":""}>${key}</th>`;
@@ -331,23 +331,46 @@ const getAll = function(e){
       $(".table-div").html(tableResult);
       $(".actHeader").append("<th>Action</th>");
 
+      console.log(results.data);
       let location = results.data.locations;
-      let ddloc = `<ul class="locul">`;
+      if(typeof location != "undefined"){
+        console.log("location exist");
+        let ddloc = `<ul class="locul">`;
       location.forEach(li => {
         
-        ddloc += `<li><input type="checkbox" data-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
+        ddloc += `<li><input type="checkbox" value-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
       });
       ddloc += `</ul>`;
       $(".ddlocul").html(ddloc);
+      }
+     /*  console.log(location);
+      let ddloc = `<ul class="locul">`;
+      location.forEach(li => {
+        
+        ddloc += `<li><input type="checkbox" value-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
+      });
+      ddloc += `</ul>`;
+      $(".ddlocul").html(ddloc); */
 
       let department = results.data.department;
-      let dddept = `<ul class="deptul">`;
+      if(typeof department != "undefined"){
+        console.log("department exist");
+        let dddept = `<ul class="deptul">`;
       department.forEach(li => {
         
-        dddept += `<li><input type="checkbox" data-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
+        dddept += `<li><input type="checkbox" value-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
       });
       dddept += `</ul>`;
       $(".dddepul").html(dddept);
+      }
+      /* console.log(department);
+      let dddept = `<ul class="deptul">`;
+      department.forEach(li => {
+        
+        dddept += `<li><input type="checkbox" value-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
+      });
+      dddept += `</ul>`;
+      $(".dddepul").html(dddept); */
 
 
       
@@ -836,6 +859,7 @@ $(".save").on("click", saveRec);
     // Number of items and limits the number of items per page
     var numberOfItems = $("#jar .content").length;
     var limitPerPage = 16;
+    console.log(numberOfItems);
     // Total pages rounded upwards
     var totalPages = Math.ceil(numberOfItems / limitPerPage);
     // Number of buttons at the top, not counting prev/next,
