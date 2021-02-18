@@ -21,29 +21,32 @@
       <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
       <ul class="navbar-nav px-3">
          <li class="nav-item text-nowrap timenav">
-        </li>
+         </li>
+         <button class="sidebar-toggle"><i class="fas fa-bars fa-2x"></i></button>
+        
       </ul>
     </nav>
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav id="sidebar" class="col-md-2 d-none d-md-block bg-light sidebar is-closed">
+        <!-- <nav id="sidebar" class="col-md-2 d-md-block bg-light sidebar is-closed"> -->
           <div class="sidebar-sticky">
-            <ul class="nav flex-column">
+            <ul id="navUl" class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active allDept" href="#" id="dept">
+                <a class="nav-link active allDept" data-id="nav-dept" href="#" id="dept">
                   <i class="far fa-building nav-i"></i>
                   Departments
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link allLoc" href="#" id="loc">
+                <a class="nav-link allLoc" data-id="nav-loc" href="#" id="loc">
                   <i class="fas fa-globe nav-i"></i>
                   Locations
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link getalldata" href="#" id="pers">
+                <a class="nav-link getalldata" data-id="nav-pers" href="#" id="pers">
                 <i class="fas fa-user nav-i"></i>
                  Personnel
                 </a>

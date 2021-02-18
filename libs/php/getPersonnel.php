@@ -73,7 +73,7 @@
 
 	// second query
 
-	$query = 'SELECT id, name from department ORDER BY id';
+	$query = 'SELECT id, name from department ORDER BY 2';
 
 	$result = $conn->query($query);
 	
@@ -102,7 +102,7 @@
 
 	// third query
 
-	$query = 'SELECT id, name from location ORDER BY id';
+	$query = 'SELECT id, name from location ORDER BY 2';
 
 	$result = $conn->query($query);
 	

@@ -1,84 +1,109 @@
 <?php
 include "libs/includes/header.php";
 ?>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <h2 class="pageTitle"></h2>
-          <button class="new" data-toggle="modal" 
-        data-target="#modal2"><i class="fas fa-plus-circle"></i>New</button>
-          <hr class="hr">
-          
-          <div class="input-group">
-            <div class="search input-wrapper">
-              <input class="form-control" id="myInput" type="text" placeholder="Search by name" aria-label="Search" >
-            </div>  
-            <div class="">
-<!-- ==================================================================================================== -->
-            <!-- departments filter -->
-            <dl class="dropdown"> 
+    <main id="main-section" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h2 class="pageTitle"></h2>
+            <button class="new" data-toggle="modal" 
+          data-target="#modal2"><i class="fas fa-plus-circle"></i>New</button>
+          <button class="newicon" data-toggle="modal" 
+          data-target="#modal2"><i class="fas fa-plus-circle fa-5x"></i></button>
+            <hr class="hr">
+            
+            <div class="input-group">
+              <div class="search input-wrapper">
+                <input class="form-control" id="myInput" type="text" placeholder="Search by name" aria-label="Search" >
+              </div>  
+              <div class="ddalign">
+  <!-- ==================================================================================================== -->
+              <!-- departments filter -->
+              <dl class="dropdown flexgrow deptdl"> 
+      
+                  <dt>
+                  <a href="#" class="department">
+                      <span class="hida dropdown-toggle"><i class="far fa-building nav-i"></i>Departments</span>
+                  </a>
+                  </dt>
+                  <dd>
+                      <div class="mutliSelect dddepul">
+                          <ul class="deptul">
+                              <li><input type="checkbox" value="Accounts" /><span>Accounts</span></li>
+                              <li><input type="checkbox" value="HR" /><span>HR</span></li>
+                              <li><input type="checkbox" value="it" /><span>IT</span></li>
+                              <li><input type="checkbox" value="Sales" /><span>Sales</span></li>
+                              <li><input type="checkbox" value="Purchase" /><span>Purchase</span></li>
+                              <li><input type="checkbox" value="Marketing" /><span>Marketing</span></li>
+                              
+                          </ul>
+                      </div>
+                  </dd>
+
+              </dl>
+  <!-- ==================================================================================================== -->
+              <!-- location filter -->  
+              <dl class="dropdown flexgrow locdl"> 
     
-                <dt>
-                <a href="#" class="department">
-                    <span class="hida dropdown-toggle"><i class="far fa-building nav-i"></i>Departments</span>
-                </a>
-                </dt>
-                <dd>
-                    <div class="mutliSelect">
-                        <ul class="deptul">
-                            <li><input type="checkbox" value="Accounts" /><span>Accounts</span></li>
-                            <li><input type="checkbox" value="HR" /><span>HR</span></li>
-                            <li><input type="checkbox" value="it" /><span>IT</span></li>
-                            <li><input type="checkbox" value="Sales" /><span>Sales</span></li>
-                            <li><input type="checkbox" value="Purchase" /><span>Purchase</span></li>
-                            <li><input type="checkbox" value="Marketing" /><span>Marketing</span></li>
-                            
-                        </ul>
-                    </div>
-                </dd>
+                  <dt>
+                  <a href="#" class="location">
+                      <span class="hida dropdown-toggle"><i class="fas fa-globe nav-i"></i></i>Locations</span>
+                  </a>
+                  </dt>
+                  <dd>
+                      <div class="mutliSelect ddlocul">
+                          <ul class="locul">
+                              <li><input type="checkbox" value="Glasgow" name="Glasgow" /><span>Glasgow</span></li>
+                              <li><input type="checkbox" value="London" name="london" /><span>London</span></li>
+                              <li><input type="checkbox" value="Manchester" name="manchester" /><span>Manchester</span></li>
+                              <li><input type="checkbox" value="Paris" name="paris" /><span>Paris</span></li>
+                              <li><input type="checkbox" value="New york"  name="new york"/><span>New York</span></li>
+                              <li><input type="checkbox" value="Lahore"  name="lahore"/><span>Lahore</span></li>
+                          </ul>
+                      </div>
+                  </dd>
 
-            </dl>
-<!-- ==================================================================================================== -->
-            <!-- location filter -->  
-            <dl class="dropdown"> 
-  
-                <dt>
-                <a href="#" class="location">
-                    <span class="hida dropdown-toggle"><i class="fas fa-globe nav-i"></i></i>Locations</span>
-                </a>
-                </dt>
-                <dd>
-                    <div class="mutliSelect">
-                        <ul class="locul">
-                            <li><input type="checkbox" value="Glasgow" name="Glasgow" /><span>Glasgow</span></li>
-                            <li><input type="checkbox" value="London" name="london" /><span>London</span></li>
-                            <li><input type="checkbox" value="Manchester" name="manchester" /><span>Manchester</span></li>
-                            <li><input type="checkbox" value="Paris" name="paris" /><span>Paris</span></li>
-                            <li><input type="checkbox" value="New york"  name="new york"/><span>New York</span></li>
-                            <li><input type="checkbox" value="Lahore"  name="lahore"/><span>Lahore</span></li>
-                        </ul>
-                    </div>
-                </dd>
-
-            </dl>  
-        </div>
-        <!-- Filter button -->
-        <button class="btnfilter"><i class="fas fa-filter"></i> Filter </button>
-    </div>
-    <i class="far fa-times-circle fa-lg" data-toggle="tooltip" title="Clear Filters"></i>
-
-    
-<!-- Tables ==================================== -->
-          <div class="table-div">
-            No data Available
+              </dl>  
+              <button class="btnfilter flexgrow"><i class="fas fa-filter"></i> Filter </button>
+              <i class="far fa-times-circle fa-lg" data-toggle="tooltip" title="Clear Filters"></i>
           </div>
+          <!-- Filter button -->
+          <!-- <button class="btnfilter"><i class="fas fa-filter"></i> Filter </button> -->
+      </div>
+      <!-- <i class="far fa-times-circle fa-lg" data-toggle="tooltip" title="Clear Filters"></i> -->
 
-            <nav>
-                <ul class="pagination justify-content-center pagination-sm">
-                    
-                </ul>
-            </nav>
+      
+    <!-- Tables ==================================== -->
+            <div class="table-div">
+              No data Available
+            </div>
 
-        </main>
+              <nav>
+                  <ul class="pagination justify-content-center pagination-sm">
+                      
+                  </ul>
+              </nav>
+
+    </main>
+
+<!-- landing page -->
+<div id="card" class="card text-center">
+  
+  <div class="card-body" data-id="nav-dept">
+      <a href="#" data-id="nav-dept"><span>    <i class="far fa-building fa-10x"></i></span></a>
+    <h5 class="card-title" data-id="nav-dept">Departments</h5>
     
+  </div>
+  <div class="card-body" data-id="nav-loc">
+  <a href="#"><span>    <i class="fas fa-globe fa-10x"></i></span></a>
+    <h5 class="card-title">Locations</h5>
+    
+  </div>
+  <div class="card-body" data-id="nav-pers">
+  <a href="#"><span>    <i class="fas fa-user fa-10x"></i></span></a>
+    <h5 class="card-title">Personnel</h5>
+    
+  </div>
+</div>
+
+<!-- 1st modal  =======================================-->
 <div id="modal1" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">

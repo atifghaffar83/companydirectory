@@ -175,16 +175,21 @@ const filter = function(){
     $(".locul input:checked").each(function(){
         location.push($(this).val().toUpperCase());
     });
+    
    $(".deptul input:checked").each(function(){
         department.push($(this).val().toUpperCase());
+        
     });
+
+    console.log(department);
+    console.log(location);
 
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
 
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[4];
-        tddep = tr[i].getElementsByTagName("td")[3];
+        td = tr[i].getElementsByTagName("td")[6];
+        tddep = tr[i].getElementsByTagName("td")[5];
 
         if (td || tddep) {
           txtValue = td.textContent || td.innerText;
@@ -219,6 +224,7 @@ const filter = function(){
 //clear filter button code
     $(".fa-times-circle").on("click", function(){
         $(".fa-times-circle").hide("slow");
+        $(':input').prop('checked', false);
         table = document.getElementById("myTable");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
@@ -235,22 +241,34 @@ const getAll = function(e){
   //e.preventDefault();
   let data, navTitle, pageTitle;
   navTitle =  $(this).attr("id");
+  let dataNav = $(this).data("id") || e.id;
   
-  switch(navTitle){
-    case 'dept':
+  switch(dataNav){
+    case 'nav-dept':
       url= "./libs/php/getAllDepartments.php";
       data= {id: navTitle};
       pageTitle = "Departments";
+      $(".deptdl").hide();
+      $(".locdl").show();
+      $(".btnfilter").show();
+
       break;
-    case 'loc':
+    case 'nav-loc':
       url= "./libs/php/getAllLocations.php";
       data= {id: navTitle};
       pageTitle = "Locations";
+      $(".locdl").hide();
+      $(".deptdl").hide();
+      $(".btnfilter").hide();
+
       break;
-    case 'pers':
+    case 'nav-pers':
       url= "./libs/php/getAll.php";
       data= {id: navTitle};
       pageTitle = "Personnel";
+      $(".locdl").show();
+      $(".deptdl").show();
+      $(".btnfilter").show();
       break;
   }
 
@@ -260,10 +278,11 @@ const getAll = function(e){
     dataType: "json",
     success: function(results){
       
-      let tableResult = `<table id="myTable" class="table table-striped table-sm">
+      let tableResult = `<table id="myTable" class="table table-striped table-sm ${dataNav}">
       <thead>
         <tr class="actHeader">`;
-      let rowHeader = results.data[0];
+      let rowHeader = results.data.allData[0];
+      console.log(results);
       for (const [key, value] of Object.entries(rowHeader)) {
         //if(!(key == "id")){
           tableResult += `<th ${key == "id"?"hidden":""}>${key}</th>`;
@@ -271,7 +290,7 @@ const getAll = function(e){
       }
       tableResult += `</tr></thead><tbody id="jar">`;
       
-      $.each(results.data, (i, row)=>{
+      $.each(results.data.allData, (i, row)=>{
         tableResult += `<tr class="content" 
         data-toggle="modal" 
         data-target="#modal1" `;
@@ -311,6 +330,26 @@ const getAll = function(e){
       $(".pageTitle").html(pageTitle);
       $(".table-div").html(tableResult);
       $(".actHeader").append("<th>Action</th>");
+
+      let location = results.data.locations;
+      let ddloc = `<ul class="locul">`;
+      location.forEach(li => {
+        
+        ddloc += `<li><input type="checkbox" data-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
+      });
+      ddloc += `</ul>`;
+      $(".ddlocul").html(ddloc);
+
+      let department = results.data.department;
+      let dddept = `<ul class="deptul">`;
+      department.forEach(li => {
+        
+        dddept += `<li><input type="checkbox" data-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
+      });
+      dddept += `</ul>`;
+      $(".dddepul").html(dddept);
+
+
       
       
     }
@@ -375,8 +414,6 @@ const editRecord = function(e){
   
   let dataTxt = $(e.currentTarget).text();
   let pageTitle = $(".pageTitle").text();
-  console.log("pageTitle");
-  console.log(pageTitle);
   
   switch(dataTxt){
     case 'Edit':
@@ -405,8 +442,7 @@ const editRecord = function(e){
     data: data,
     dataType: "json",
     success: function(results){
-      console.log("results");
-      console.log(results);
+      
       if (results.status.name == "ok"){
         if(dataTxt == "Edit"){
           
@@ -488,7 +524,17 @@ const editRecord = function(e){
           
         } else if(dataTxt === "Delete"){
           $(".formModal").html("<span>Deleted</span>");
-          getAll();
+//          getAll();
+          if(pageTitle == "Departments"){
+            let dataID = {id: "nav-dept"}
+            getAll(dataID);
+          } else if(pageTitle == "Locations"){
+            let dataID = {id: "nav-loc"}
+            getAll(dataID);
+          } else{
+            let dataID = {id: "nav-pers"}
+            getAll(dataID);
+          }
         }
       
     }
@@ -509,7 +555,7 @@ const update = function(e){
   e.preventDefault();
   let url, html;
   let pageTitle = $(".pageTitle").text();
-  console.log($('form').serialize()+"&title="+pageTitle);
+  
    $.ajax({
     url: "./libs/php/update.php",
     type: "POST",
@@ -519,8 +565,7 @@ const update = function(e){
       
       if (results.status.name == "ok"){
           let personRow = results.data.updateData[0];
-          console.log("personRow");
-          console.log(personRow);
+          
           html = `<form>`;
             for (const [key, value] of Object.entries(personRow)) {
               
@@ -546,7 +591,16 @@ const update = function(e){
         $('#exampleModalLongTitle').html(`${personRow['name']}`);
       } 
             
-    getAll();
+    if(pageTitle == "Departments"){
+      let dataID = {id: "nav-dept"}
+      getAll(dataID);
+    } else if(pageTitle == "Locations"){
+      let dataID = {id: "nav-loc"}
+      getAll(dataID);
+    } else{
+      let dataID = {id: "nav-pers"}
+      getAll(dataID);
+    }
       
     }
   }, 
@@ -617,7 +671,7 @@ const create = function(e){
     dataType: "json",
     success: function(results){
       let updateData = results.data.updateData;
-      console.log(updateData);
+      
 
       ////////////////////////
       $('#modal2').modal({
@@ -682,7 +736,7 @@ const create = function(e){
           let htmlNew ="";
         
       if(pageTitle == "Personnel"){
-      console.log("persoooooooooooooooooa");
+      
         htmlNew += `
               <div class="form-group row">
                 <label for="departmentID" class="col-sm-2 col-form-label"><strong>Department</strong></label>
@@ -692,7 +746,7 @@ const create = function(e){
             htmlNew += `<option value="${option.id}" data-id="${option.id}"} >${option.name}</option>`;
                   });
           htmlNew +=`</select></div></div>`;
-          console.log($('.formModalNew').html());
+          
           $('#exampleModalLongTitleNew').html(`Create New Personnel`);
         $('.formModalNew').append(htmlNew);
       
@@ -733,22 +787,7 @@ const create = function(e){
 
 const saveRec = function(){
   pageTitle = $(".pageTitle").text();
-  console.log($('#modal2 form').serialize()+"&title="+pageTitle);
-  /* switch(pageTitle){
-    case "Personnel":
-      
-      url= "./libs/php/newLocDept.php";
-      data = {title: pageTitle};
-      break;
-    case "Departments":
-      url= "./libs/php/newLocDept.php";
-      data = {title: pageTitle};
-    break;
-    case "Locations":
-      url= "./libs/php/newLocDept.php";
-      data = {title: pageTitle};
-    break;
-  } */
+  
   $.ajax({
     url: "./libs/php/insertRecord.php",
     type: "POST",
@@ -756,10 +795,21 @@ const saveRec = function(){
     dataType: "json",
     success: function(results){
       if (results.status.name == "ok"){
-      console.log("New record createdddddddddddddddddddddd");
-      console.log(results);
+      
       $("#modal2 .formModalNew").html("Successfully created");
-      getAll();
+
+      if(pageTitle == "Departments"){
+        let dataID = {id: "nav-dept"}
+        getAll(dataID);
+      } else if(pageTitle == "Locations"){
+        let dataID = {id: "nav-loc"}
+        getAll(dataID);
+      } else{
+        let dataID = {id: "nav-pers"}
+        getAll(dataID);
+      }
+      
+      $(".save").hide();
     }
   }, 
   error: function(jqXHR, textStatus, errorThrown) {
@@ -779,6 +829,7 @@ $(".delete").on("click", function(e){
 });
 $(".update").on("click", update);
 $(".new").on("click", create);
+$(".newicon").on("click", create);
 $(".save").on("click", saveRec);
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -876,6 +927,32 @@ $(".save").on("click", saveRec);
       });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+$("#navUl").on("click", function(){
+  $("#main-section").show("slow");
+});
+
+$(".card-body").on("click", function(){
+  $("#main-section").show("slow");
+  $("#sidebar").css('visibility', 'visible');
+  $(".card-body").hide();
+  
+  let dataId = $(this).data();
+  getAll(dataId);
+});
+
+  //=========================================================================================================
+  //sidebar function
+  var toggleBtn = document.querySelector('.sidebar-toggle');
+  var sidebar = document.querySelector('.sidebar');
+  
+  toggleBtn.addEventListener('click', function() {
+    toggleBtn.classList.toggle('is-closed');
+    sidebar.classList.toggle('d-none');
+    
+    
+  });
+
+//////////////////////////////////////////////////////////////////////////////
 });
   
 //});

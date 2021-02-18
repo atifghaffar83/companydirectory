@@ -17,6 +17,38 @@ i {
     color: #fff;
 }
 
+#main-section{
+  display: none;
+}
+
+#sidebar{
+  visibility: hidden;
+}
+
+#card{
+  
+  z-index: 101;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.card{
+  color: #00B2FF;
+  font-weight: 400;
+  flex-direction: row;
+  border: none;
+}
+
+.card-body a{
+  color: #00B2FF;
+}
+.card h5{
+  font-weight: 400;
+ }
+
 .navbar ::placeholder {
     color: #fff;
     opacity: 1; /* Firefox */
@@ -105,6 +137,7 @@ i {
 /* dropdown css properties */
 .dropdown{
     display: inline-block;
+    margin-right: 4px;
 }
 
 .dropdown dd,
@@ -148,6 +181,9 @@ i {
 .multiSel span {
   cursor: pointer;
   display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* padding: 0 3px 2px 0; */
 }
 
@@ -191,6 +227,10 @@ i {
     border-left: .3em solid transparent;
 }
 
+.ddalign{
+  display: flex;
+}
+
 .mutliSelect span{
     padding-left: 6px;
 }
@@ -202,7 +242,7 @@ i {
     color: #fff;
     border: 0;
     display: inline-block;
-    margin-left: 3px;
+    
     
 
 }
@@ -247,9 +287,9 @@ i {
 
 .fa-times-circle{
     display: none;
-    position: relative;
-    bottom: 61px;
-    left: 924px;
+    position: absolute;
+    bottom: 28px;
+    left: 925px;
     color: #fff;
 }
 
@@ -281,3 +321,236 @@ transform: translate(-50%, -50%);
 .notfound{
   display: none;
 }
+
+.newicon{
+  display: none;
+}
+
+.form-control-plaintext{
+  background-color: #ebebeb;
+  padding-left: 4px;
+}
+
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #00B2FF; 
+}
+th { 
+  
+  color: white; 
+  font-weight: bold; 
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+
+td.action{
+  width: 120px;
+  text-align: center;
+}
+
+.sidebar-toggle{
+  display: none;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  right: 20px;
+  top: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.5s;
+  background-color: #fff;
+}
+
+/* media query for deive width 1200px or less */
+@media (max-width: 1200px) {
+  
+  .input-group{
+    flex-direction: column;
+    align-items: center;
+  }
+  .search{
+    width: 100%;
+    margin-bottom: 16px;
+    margin-right: 0;
+  }
+}
+
+/* media query for deive width 760px or less */
+
+
+@media (max-width: 990px) {
+  .ml-sm-auto, .mx-sm-auto {
+    margin-left: 130px!important;
+}
+
+.col-lg-10 {
+  max-width: 90%;
+}
+
+
+
+}
+
+@media (max-width: 768px) {
+ 	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+
+  .col-lg-10 {
+    max-width: 100%;
+  }
+
+  .ml-sm-auto, .mx-sm-auto {
+    margin-left: 0px!important;
+}
+
+.col-md-2{
+  width: 30%;
+}
+
+.sidebar {
+  z-index: 1000;
+  
+}
+
+.action{
+  display: none;
+}
+
+.timenav{
+  display: none;
+}
+
+.sidebar-toggle{
+  display: block;
+  color: #fff;
+  background-color: #00B2FF;
+  
+}
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid rgb(148, 148, 148); }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: none; 
+		position: relative;
+		
+	}
+
+  .table td{
+    padding-left: 160px;
+    height: 28px;
+  }
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	.nav-pers td:nth-of-type(2):before { content: "Last Name";  font-weight: bold;}
+	.nav-pers td:nth-of-type(3):before { content: "First Name"; font-weight: bold;}
+	.nav-pers td:nth-of-type(4):before { content: "Job Title"; font-weight: bold;}
+	.nav-pers td:nth-of-type(5):before { content: "Email"; font-weight: bold;}
+	.nav-pers td:nth-of-type(6):before { content: "Department"; font-weight: bold;}
+	.nav-pers td:nth-of-type(7):before { content: "Location"; font-weight: bold;}
+	.nav-pers td:nth-of-type(8):before { content: "Action"; font-weight: bold;}
+	
+  .nav-loc td:nth-of-type(2):before { content: "Name";  font-weight: bold;}
+	
+  .nav-dept td:nth-of-type(2):before { content: "Name";  font-weight: bold;}
+	.nav-dept td:nth-of-type(3):before { content: "Location ID"; font-weight: bold;}
+	.nav-dept td:nth-of-type(4):before { content: "Location"; font-weight: bold;}
+
+
+}
+
+/* media query for deive width 650px or less */
+
+@media (max-width: 650px) {
+  
+  #main-section h2{
+   text-align: center;
+  }
+  .pageTitle {
+    display: block;
+}
+  .dropdown dt a , .dropdown dd ul, .btnfilter{
+    width: 100%;
+    
+  }
+
+  .ddalign{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .ddalign .fa-times-circle{
+    position: absolute;
+    bottom: 10px;
+    left: 300px;
+}
+
+  .navbar {
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+.newicon{
+  display: block;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  color: #00B2FF;
+  border: none;
+  z-index: 10001;
+}
+.new{
+  display: none;
+}
+
+hr{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.action{
+  display: none;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(82, 82, 82, 0.2);
+}
+
+.card {
+  
+  flex-direction: column;
+  
+}
+ 
+    
+}
+
