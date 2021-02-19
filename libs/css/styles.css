@@ -26,7 +26,6 @@ i {
 }
 
 #card{
-  
   z-index: 101;
   position: absolute;
   top: 50%;
@@ -134,7 +133,7 @@ i {
     content: "\f002";
 }
 
-/* dropdown css properties */
+/* dropdown css properties ***********************************************/
 .dropdown{
     display: inline-block;
     margin-right: 4px;
@@ -170,7 +169,6 @@ i {
   display: block;
   padding: 8px 20px 5px 10px;
   min-height: 25px;
-  /* line-height: 24px; */
   overflow: hidden;
   border: 0;
   width: 179px;
@@ -178,13 +176,13 @@ i {
 }
 
 .dropdown dt a span,
-.multiSel span {
+.multiSel span, .btnfilter {
   cursor: pointer;
   display: inline-block;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 0 3px 2px 0; */
+
 }
 
 .dropdown dd ul {
@@ -236,15 +234,13 @@ i {
 }
 /* Filter button */
 .btnfilter{
+    display: flex;
     width: 179px;
     height: 34px;
     background-color: #00B2FF;
     color: #fff;
     border: 0;
-    display: inline-block;
     
-    
-
 }
 
 .new{
@@ -287,10 +283,8 @@ i {
 
 .fa-times-circle{
     display: none;
-    position: absolute;
-    bottom: 28px;
-    left: 925px;
     color: #fff;
+    margin-left: 10px;
 }
 
 .home{
@@ -369,7 +363,7 @@ td.action{
   background-color: #fff;
 }
 
-/* media query for deive width 1200px or less */
+/* media query for deive width 1200px or less ************************************************************/
 @media (max-width: 1200px) {
   
   .input-group{
@@ -509,11 +503,10 @@ td.action{
     justify-content: center;
   }
 
-  .ddalign .fa-times-circle{
-    position: absolute;
+/*   .ddalign .fa-times-circle{
     bottom: 10px;
     left: 300px;
-}
+} */
 
   .navbar {
     display: flex;

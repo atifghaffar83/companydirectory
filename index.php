@@ -61,8 +61,8 @@ include "libs/includes/header.php";
                   </dd>
 
               </dl>  
-              <button class="btnfilter flexgrow"><i class="fas fa-filter"></i> Filter </button>
-              <i class="far fa-times-circle fa-lg" data-toggle="tooltip" title="Clear Filters"></i>
+              <button class="btnfilter flexgrow"><i class="fas fa-filter"></i> Filter <i class="far fa-times-circle fa-2x" data-toggle="tooltip" title="Clear Filters"></i></button>
+              <!-- <i class="far fa-times-circle fa-lg" data-toggle="tooltip" title="Clear Filters"></i> -->
           </div>
           <!-- Filter button -->
           <!-- <button class="btnfilter"><i class="fas fa-filter"></i> Filter </button> -->

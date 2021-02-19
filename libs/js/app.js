@@ -42,99 +42,106 @@ function getPageList(totalPages, page, maxLength) {
   }
   
   $(function() {
-/*     ///////////////////////////////////////////////////////////////////////////////
-    // Number of items and limits the number of items per page
-    var numberOfItems = $("#jar .content").length;
-    var limitPerPage = 16;
-    // Total pages rounded upwards
-    var totalPages = Math.ceil(numberOfItems / limitPerPage);
-    // Number of buttons at the top, not counting prev/next,
-    // but including the dotted buttons.
-    // Must be at least 5:
-    var paginationSize = 7;
-    var currentPage;
+    var numberOfItems;
+    const pagination = function(allrecords){
+      
+    
+      // Number of items and limits the number of items per page
+      //var numberOfItems = $("#jar .content").length;
   
-    function showPage(whichPage) {
-      if (whichPage < 1 || whichPage > totalPages) return false;
-      currentPage = whichPage;
-      $("#jar .content")
-        .hide()
-        .slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage)
-        .show();
-      // Replace the navigation items (not prev/next):
-      $(".pagination li").slice(1, -1).remove();
-      getPageList(totalPages, currentPage, paginationSize).forEach(item => {
-        $("<li>")
-          .addClass(
-            "page-item " +
-              (item ? "current-page " : "") +
-              (item === currentPage ? "active " : "")
-          )
-          .append(
-            $("<a>")
-              .addClass("page-link")
-              .attr({
-                href: "javascript:void(0)"
-              })
-              .text(item || "...")
-          )
-          .insertBefore("#next-page");
+      var limitPerPage = 16;
+      
+      // Total pages rounded upwards
+      var totalPages = Math.ceil(numberOfItems / limitPerPage);
+      // Number of buttons at the top, not counting prev/next,
+      // but including the dotted buttons.
+      // Must be at least 5:
+      var paginationSize = 7;
+      var currentPage;
+    
+      function showPage(whichPage) {
+        if (whichPage < 1 || whichPage > totalPages) return false;
+        currentPage = whichPage;
+        $("#jar .content")
+          .hide()
+          .slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage)
+          .show();
+        // Replace the navigation items (not prev/next):
+        $(".pagination li").slice(1, -1).remove();
+        getPageList(totalPages, currentPage, paginationSize).forEach(item => {
+          $("<li>")
+            .addClass(
+              "page-item " +
+                (item ? "current-page " : "") +
+                (item === currentPage ? "active " : "")
+            )
+            .append(
+              $("<a>")
+                .addClass("page-link")
+                .attr({
+                  href: "javascript:void(0)"
+                })
+                .text(item || "...")
+            )
+            .insertBefore("#next-page");
+        });
+        return true;
+      }
+    
+      // Include the prev/next buttons:
+      $(".pagination").append(
+        $("<li>").addClass("page-item").attr({ id: "previous-page" }).append(
+          $("<a>")
+            .addClass("page-link")
+            .attr({
+              href: "javascript:void(0)"
+            })
+            .text("Prev")
+        ),
+        $("<li>").addClass("page-item").attr({ id: "next-page" }).append(
+          $("<a>")
+            .addClass("page-link")
+            .attr({
+              href: "javascript:void(0)"
+            })
+            .text("Next")
+        )
+      );
+      // Show the page links
+      $("#jar").show();
+      showPage(1);
+    
+      // Use event delegation, as these items are recreated later
+      $(document).on("click", ".pagination li.current-page:not(.active)", function() {
+        return showPage(+$(this).text());
       });
-      return true;
+      $("#next-page").on("click", function() {
+        return showPage(currentPage + 1);
+      });
+    
+      $("#previous-page").on("click", function() {
+        return showPage(currentPage - 1);
+      });
+      $(".pagination").on("click", function() {
+        $("html,body").animate({ scrollTop: 0 }, 0);
+      });
     }
-  
-    // Include the prev/next buttons:
-    $(".pagination").append(
-      $("<li>").addClass("page-item").attr({ id: "previous-page" }).append(
-        $("<a>")
-          .addClass("page-link")
-          .attr({
-            href: "javascript:void(0)"
-          })
-          .text("Prev")
-      ),
-      $("<li>").addClass("page-item").attr({ id: "next-page" }).append(
-        $("<a>")
-          .addClass("page-link")
-          .attr({
-            href: "javascript:void(0)"
-          })
-          .text("Next")
-      )
-    );
-    // Show the page links
-    $("#jar").show();
-    showPage(1);
-  
-    // Use event delegation, as these items are recreated later
-    $(document).on("click", ".pagination li.current-page:not(.active)", function() {
-      return showPage(+$(this).text());
-    });
-    $("#next-page").on("click", function() {
-      return showPage(currentPage + 1);
-    });
-  
-    $("#previous-page").on("click", function() {
-      return showPage(currentPage - 1);
-    });
-    $(".pagination").on("click", function() {
-      $("html,body").animate({ scrollTop: 0 }, 0);
-    });
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      //dropdown filters code
+      $(".dropdown dt a.department").on('click', function() {
+          $(".dropdown dd ul.deptul").slideToggle('fast');
+        });
+        
+      $(".dropdown dt a.location").on('click', function() {
+          $(".dropdown dd ul.locul").slideToggle('fast');
+        });
+        
+        
+        $(document).bind('click', function(e) {
+          var $clicked = $(e.target);
+          if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
+        });
 
-    //dropdown filters code
-    $(".dropdown dt a.department").on('click', function() {
-        $(".dropdown dd ul.deptul").slideToggle('fast');
-      });
-      
-    $(".dropdown dt a.location").on('click', function() {
-        $(".dropdown dd ul.locul").slideToggle('fast');
-      });
-      
-      
-      $(document).bind('click', function(e) {
-        var $clicked = $(e.target);
-        if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
-      });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 // SEARCHING TABLE
 function search() {
@@ -181,36 +188,57 @@ const filter = function(){
         
     });
 
+    let pageTitle = $(".pageTitle").text();
+    
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
 
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[6];
-        tddep = tr[i].getElementsByTagName("td")[5];
-
-        if (td || tddep) {
-          txtValue = td.textContent || td.innerText;
-          tddepValue = tddep.textContent || tddep.innerText;
-            if ((location.indexOf(txtValue.toUpperCase()) > -1) && (department.indexOf(tddepValue.toUpperCase()) > -1)) {
-              tr[i].style.display = "";
-
-            } else if((location.indexOf(txtValue.toUpperCase()) > -1) && (department.indexOf(tddepValue.toUpperCase()) == -1)){
-              tr[i].style.display = "";
-                
-            } else if((location.indexOf(txtValue.toUpperCase()) == -1) && (department.indexOf(tddepValue.toUpperCase()) > -1)){
-              tr[i].style.display = "";
+        
+        if(pageTitle == "Personnel"){
+          td = tr[i].getElementsByTagName("td")[6];
+          tddep = tr[i].getElementsByTagName("td")[5];
+          if (td || tddep) {
+            txtValue = td.textContent || td.innerText;
+            tddepValue = tddep.textContent || tddep.innerText;
+              if ((location.indexOf(txtValue.toUpperCase()) > -1) && (department.indexOf(tddepValue.toUpperCase()) > -1)) {
+                tr[i].style.display = "";
+  
+              } else if((location.indexOf(txtValue.toUpperCase()) > -1) && (department.indexOf(tddepValue.toUpperCase()) == -1)){
+                tr[i].style.display = "";
+                  
+              } else if((location.indexOf(txtValue.toUpperCase()) == -1) && (department.indexOf(tddepValue.toUpperCase()) > -1)){
+                tr[i].style.display = "";
+              }
+  
+               else {
+                  tr[i].style.display = "none";
             }
-
-             else {
-                tr[i].style.display = "none";
-          }
-        }       
+          } 
+        } else{
+          
+          td = tr[i].getElementsByTagName("td")[3];
+          if (td || tddep) {
+            
+            txtValue = td.textContent || td.innerText;
+              if ((location.indexOf(txtValue.toUpperCase()) > -1)) {
+                tr[i].style.display = "";
+  
+              } else {
+                  tr[i].style.display = "none";
+            }
+          } 
+        }
+              
       }
 
-      
+     
 
       $(".fa-times-circle").show("slow");
 }
+ //pagination
+ /* numberOfItems = $("#jar .content:visible").length;
+ pagination(numberOfItems); */
 }
 
     $(".btnfilter").on("click",filter);
@@ -227,22 +255,23 @@ const filter = function(){
         for (i = 0; i < tr.length; i++) {
             tr[i].style.display = "";
         }
+        //pagination
+        numberOfItems = $("#jar .content").length;
+        pagination(numberOfItems);
     })
 let navTime = new Date().toLocaleString();
 $(".timenav").html(`<b>${navTime}</b>`);
 
 /////////////////////////////////////////////////////////////////////////////////////
-
+var numberOfItems;
 //all perosonnel data ajax calling php file
 const getAll = function(e){
   //e.preventDefault();
+  
   let data, navTitle, pageTitle;
   navTitle =  $(this).attr("id");
   let dataNav = $(this).data("id") || e.id;
-  console.log('navTitle');
-  console.log(navTitle);
-  console.log('dataNav');
-  console.log(dataNav);
+  
   switch(dataNav){
     case 'nav-dept':
       url= "./libs/php/getAllDepartments.php";
@@ -326,15 +355,15 @@ const getAll = function(e){
       });
       tableResult += `</table>`;
       
-      //let pageTitle = "Personnel";
+      
       $(".pageTitle").html(pageTitle);
       $(".table-div").html(tableResult);
       $(".actHeader").append("<th>Action</th>");
 
-      console.log(results.data);
+      
       let location = results.data.locations;
       if(typeof location != "undefined"){
-        console.log("location exist");
+        
         let ddloc = `<ul class="locul">`;
       location.forEach(li => {
         
@@ -343,18 +372,10 @@ const getAll = function(e){
       ddloc += `</ul>`;
       $(".ddlocul").html(ddloc);
       }
-     /*  console.log(location);
-      let ddloc = `<ul class="locul">`;
-      location.forEach(li => {
-        
-        ddloc += `<li><input type="checkbox" value-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
-      });
-      ddloc += `</ul>`;
-      $(".ddlocul").html(ddloc); */
-
+   
       let department = results.data.department;
       if(typeof department != "undefined"){
-        console.log("department exist");
+        
         let dddept = `<ul class="deptul">`;
       department.forEach(li => {
         
@@ -363,18 +384,12 @@ const getAll = function(e){
       dddept += `</ul>`;
       $(".dddepul").html(dddept);
       }
-      /* console.log(department);
-      let dddept = `<ul class="deptul">`;
-      department.forEach(li => {
-        
-        dddept += `<li><input type="checkbox" value-id="${li.id}" value="${li.name}" name="${li.name}"><span>${li.name}</span></li>`;
-      });
-      dddept += `</ul>`;
-      $(".dddepul").html(dddept); */
+      
+      //pagination
+      numberOfItems = $("#jar .content").length;
+      pagination(numberOfItems);
 
 
-      
-      
     }
   });
 }
@@ -843,114 +858,11 @@ const saveRec = function(){
 
 }
 
-$(".getalldata").on("click", getAll);
-$(".allDept").on("click", getAll);
-$(".allLoc").on("click", getAll);
-$(".edit").on("click", editRecord);
-$(".delete").on("click", function(e){
-  if(confirm('Are you sure?')) editRecord(e);
-});
-$(".update").on("click", update);
-$(".new").on("click", create);
-$(".newicon").on("click", create);
-$(".save").on("click", saveRec);
+
 
     ///////////////////////////////////////////////////////////////////////////////
-    // Number of items and limits the number of items per page
-    var numberOfItems = $("#jar .content").length;
-    var limitPerPage = 16;
-    console.log(numberOfItems);
-    // Total pages rounded upwards
-    var totalPages = Math.ceil(numberOfItems / limitPerPage);
-    // Number of buttons at the top, not counting prev/next,
-    // but including the dotted buttons.
-    // Must be at least 5:
-    var paginationSize = 7;
-    var currentPage;
-  
-    function showPage(whichPage) {
-      if (whichPage < 1 || whichPage > totalPages) return false;
-      currentPage = whichPage;
-      $("#jar .content")
-        .hide()
-        .slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage)
-        .show();
-      // Replace the navigation items (not prev/next):
-      $(".pagination li").slice(1, -1).remove();
-      getPageList(totalPages, currentPage, paginationSize).forEach(item => {
-        $("<li>")
-          .addClass(
-            "page-item " +
-              (item ? "current-page " : "") +
-              (item === currentPage ? "active " : "")
-          )
-          .append(
-            $("<a>")
-              .addClass("page-link")
-              .attr({
-                href: "javascript:void(0)"
-              })
-              .text(item || "...")
-          )
-          .insertBefore("#next-page");
-      });
-      return true;
-    }
-  
-    // Include the prev/next buttons:
-    $(".pagination").append(
-      $("<li>").addClass("page-item").attr({ id: "previous-page" }).append(
-        $("<a>")
-          .addClass("page-link")
-          .attr({
-            href: "javascript:void(0)"
-          })
-          .text("Prev")
-      ),
-      $("<li>").addClass("page-item").attr({ id: "next-page" }).append(
-        $("<a>")
-          .addClass("page-link")
-          .attr({
-            href: "javascript:void(0)"
-          })
-          .text("Next")
-      )
-    );
-    // Show the page links
-    $("#jar").show();
-    showPage(1);
-  
-    // Use event delegation, as these items are recreated later
-    $(document).on("click", ".pagination li.current-page:not(.active)", function() {
-      return showPage(+$(this).text());
-    });
-    $("#next-page").on("click", function() {
-      return showPage(currentPage + 1);
-    });
-  
-    $("#previous-page").on("click", function() {
-      return showPage(currentPage - 1);
-    });
-    $(".pagination").on("click", function() {
-      $("html,body").animate({ scrollTop: 0 }, 0);
-    });
 
-    //dropdown filters code
-    $(".dropdown dt a.department").on('click', function() {
-        $(".dropdown dd ul.deptul").slideToggle('fast');
-      });
-      
-    $(".dropdown dt a.location").on('click', function() {
-        $(".dropdown dd ul.locul").slideToggle('fast');
-      });
-      
-      
-      $(document).bind('click', function(e) {
-        var $clicked = $(e.target);
-        if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
-      });
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+   
 $("#navUl").on("click", function(){
   $("#main-section").show("slow");
 });
@@ -964,7 +876,7 @@ $(".card-body").on("click", function(){
   getAll(dataId);
 });
 
-  //=========================================================================================================
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //sidebar function
   var toggleBtn = document.querySelector('.sidebar-toggle');
   var sidebar = document.querySelector('.sidebar');
@@ -973,10 +885,20 @@ $(".card-body").on("click", function(){
     toggleBtn.classList.toggle('is-closed');
     sidebar.classList.toggle('d-none');
     
-    
   });
 
-//////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+$(".getalldata").on("click", getAll);
+$(".allDept").on("click", getAll);
+$(".allLoc").on("click", getAll);
+$(".edit").on("click", editRecord);
+$(".delete").on("click", function(e){
+  if(confirm('Are you sure?')) editRecord(e);
+});
+$(".update").on("click", update);
+$(".new").on("click", create);
+$(".newicon").on("click", create);
+$(".save").on("click", saveRec);
 });
   
 //});
