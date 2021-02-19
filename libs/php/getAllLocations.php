@@ -30,7 +30,7 @@
 	}	
 
 	//$query = 'SELECT id, name, locationID FROM department';
-	$query = 'SELECT id, name as Name FROM location';
+	$query = 'SELECT id, name as Name FROM location ORDER BY 2';
 
 	$result = $conn->query($query);
 	

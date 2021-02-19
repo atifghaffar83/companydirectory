@@ -75,16 +75,16 @@ include "libs/includes/header.php";
               No data Available
             </div>
 
-              <nav>
+              <!-- <nav>
                   <ul class="pagination justify-content-center pagination-sm">
                       
                   </ul>
-              </nav>
+              </nav> -->
 
     </main>
 
-<!-- landing page -->
-<div id="card" class="card text-center">
+<!-- landing page ====================================================-->
+<!-- <div id="card" class="card text-center">
   
   <div class="card-body" data-id="nav-dept">
       <a href="#" data-id="nav-dept"><span>    <i class="far fa-building fa-10x"></i></span></a>
@@ -101,7 +101,7 @@ include "libs/includes/header.php";
     <h5 class="card-title">Personnel</h5>
     
   </div>
-</div>
+</div> -->
 
 <!-- 1st modal  =======================================-->
 <div id="modal1" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

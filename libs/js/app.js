@@ -5,7 +5,7 @@
 //   page:           current page
 //   maxLength:      maximum size of returned array
 //$(document).ready(()=>{
-function getPageList(totalPages, page, maxLength) {
+/* function getPageList(totalPages, page, maxLength) {
     if (maxLength < 5) throw "maxLength must be at least 5";
   
     function range(start, end) {
@@ -39,10 +39,12 @@ function getPageList(totalPages, page, maxLength) {
       .concat(range(page - leftWidth, page + rightWidth))
       .concat([0])
       .concat(range(totalPages - sideWidth + 1, totalPages));
-  }
+  } */
   
   $(function() {
-    var numberOfItems;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /* var numberOfItems;
     const pagination = function(allrecords){
       
     
@@ -125,7 +127,7 @@ function getPageList(totalPages, page, maxLength) {
       $(".pagination").on("click", function() {
         $("html,body").animate({ scrollTop: 0 }, 0);
       });
-    }
+    } */
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
       //dropdown filters code
       $(".dropdown dt a.department").on('click', function() {
@@ -142,7 +144,7 @@ function getPageList(totalPages, page, maxLength) {
           if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
         });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SEARCHING TABLE
 function search() {
   
@@ -169,7 +171,7 @@ var search = $(this).val();
 
 $("#myInput").on("keyup",search);
 
-    
+////////////////////////////////////////////////////////////////////////////////////////////////
 //filter function for location and department
 const filter = function(){
     let location = [];
@@ -236,9 +238,7 @@ const filter = function(){
 
       $(".fa-times-circle").show("slow");
 }
- //pagination
- /* numberOfItems = $("#jar .content:visible").length;
- pagination(numberOfItems); */
+ 
 }
 
     $(".btnfilter").on("click",filter);
@@ -255,15 +255,12 @@ const filter = function(){
         for (i = 0; i < tr.length; i++) {
             tr[i].style.display = "";
         }
-        //pagination
-        numberOfItems = $("#jar .content").length;
-        pagination(numberOfItems);
     })
 let navTime = new Date().toLocaleString();
 $(".timenav").html(`<b>${navTime}</b>`);
 
 /////////////////////////////////////////////////////////////////////////////////////
-var numberOfItems;
+
 //all perosonnel data ajax calling php file
 const getAll = function(e){
   //e.preventDefault();
@@ -314,7 +311,7 @@ const getAll = function(e){
       
       for (const [key, value] of Object.entries(rowHeader)) {
         //if(!(key == "id")){
-          tableResult += `<th ${key == "id"?"hidden":""}>${key}</th>`;
+          tableResult += `<th ${(key == "id") || (key == "LocationID")?"hidden":""}>${key}</th>`;
         //}
       }
       tableResult += `</tr></thead><tbody id="jar">`;
@@ -335,7 +332,7 @@ const getAll = function(e){
       
         for (const [key, value] of Object.entries(row)) {
           //if(!(key == "id")){
-            tableResult += `<td ${key == "id"?"hidden":""}>${value}</td>`;
+            tableResult += `<td ${(key == "id") || (key == "LocationID")?"hidden":""}>${value}</td>`;
           //}
         }
 
@@ -384,19 +381,15 @@ const getAll = function(e){
       dddept += `</ul>`;
       $(".dddepul").html(dddept);
       }
-      
-      //pagination
-      numberOfItems = $("#jar .content").length;
-      pagination(numberOfItems);
-
 
     }
   });
 }
+
 //////////////////////////////////////////////////////////////////////
   $('#modal1').modal({
       keyboard: true,
-      backdrop: "static",
+      //backdrop: "static",
       show: false,
       
   }).on('shown.bs.modal', function(event){
@@ -409,9 +402,9 @@ const getAll = function(e){
           if(!(key == "target") && !(key == "toggle") && !(key == "Id")){
           html += `
           <div class="form-group row">
-            <label for="${key}" class="col-sm-2 col-form-label"><strong>${key}</strong></label>
+            <label for="${key}" class="col-sm-2 col-form-label"  ${(key == "id") || (key == "Locationid")?"hidden":""}><strong>${key}</strong></label>
             <div class="col-sm-10">
-              <input type="text" readonly class="form-control-plaintext ${key}" id="${key}" value="${value}">
+              <input type="text" readonly class="form-control-plaintext ${key}" id="${key}" value="${value}" ${(key == "id") || (key == "Locationid")?"hidden":""}>
             </div>
           </div>`;
           
@@ -442,6 +435,7 @@ const getAll = function(e){
       $('.save').hide();
           
   });
+
 ///////////////////////////////////////////////////////////////////////////////////////
 const editRecord = function(e){
   
@@ -496,7 +490,7 @@ const editRecord = function(e){
             departmentID = tableRow.departmentID;
             for (const [key, value] of Object.entries(tableRow)) {
               if(!(key == "departmentID")){
-              html += `<div class="form-group row">
+              html += `<div class="form-group row" ${(key == "id")?"hidden":""}>
               <label for="${key}" class="col-sm-2 col-form-label"><strong>${key}</strong></label>
               <div class="col-sm-10">
               <input type="text" ${!(key == "id") ? "contenteditable" : "readonly"} class="form-control-plaintext ${key}" id="${key}" name="${key}" value="${value}">
@@ -508,7 +502,7 @@ const editRecord = function(e){
             locationID = tableRow.locationID;
             for (const [key, value] of Object.entries(tableRow)) {
               if(!(key == "locationID")){
-              html += `<div class="form-group row">
+              html += `<div class="form-group row" ${(key == "id")?"hidden":""}>
               <label for="${key}" class="col-sm-2 col-form-label"><strong>${key}</strong></label>
               <div class="col-sm-10">
               <input type="text" ${!(key == "id") ? "contenteditable" : "readonly"} class="form-control-plaintext ${key}" id="${key}" name="${key}" value="${value}">
@@ -520,7 +514,7 @@ const editRecord = function(e){
             
             for (const [key, value] of Object.entries(tableRow)) {
               //if(!(key == "locationID")){
-              html += `<div class="form-group row">
+              html += `<div class="form-group row" ${(key == "id")?"hidden":""}>
               <label for="${key}" class="col-sm-2 col-form-label"><strong>${key}</strong></label>
               <div class="col-sm-10">
               <input type="text" ${!(key == "id") ? "contenteditable" : "readonly"} class="form-control-plaintext ${key}" id="${key}" name="${key}" value="${value}">
@@ -564,13 +558,13 @@ const editRecord = function(e){
           $(".formModal").html("<span>Deleted</span>");
 //          getAll();
           if(pageTitle == "Departments"){
-            let dataID = {id: "nav-dept"}
+            let dataID = {id: "nav-dept"};
             getAll(dataID);
           } else if(pageTitle == "Locations"){
-            let dataID = {id: "nav-loc"}
+            let dataID = {id: "nav-loc"};
             getAll(dataID);
           } else{
-            let dataID = {id: "nav-pers"}
+            let dataID = {id: "nav-pers"};
             getAll(dataID);
           }
         }
@@ -589,6 +583,7 @@ const editRecord = function(e){
  
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
 const update = function(e){
   e.preventDefault();
   let url, html;
@@ -607,7 +602,7 @@ const update = function(e){
           html = `<form>`;
             for (const [key, value] of Object.entries(personRow)) {
               
-              html += `<div class="form-group row">
+              html += `<div class="form-group row" ${(key == "id") || (key == "departmentID")  || (key == "locationID")?"hidden":""}>
               <label for="${key}" class="col-sm-2 col-form-label"><strong>${key}</strong></label>
               <div class="col-sm-10">
               <input type="text" contenteditable class="form-control-plaintext ${key}" id="${key}" name="${key}" value="${value}">
@@ -654,8 +649,7 @@ const update = function(e){
  
 }
 
-/////////////////////////////////////////////////////////////////////
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 const create = function(e){
   let url, data, pageTitle;
   
@@ -674,7 +668,7 @@ const create = function(e){
     case "Locations":
       $('#modal2').modal({
         keyboard: true,
-        backdrop: "static",
+        //backdrop: "static",
         show: false,
         
       }).on('shown.bs.modal', function(event){
@@ -709,12 +703,10 @@ const create = function(e){
     dataType: "json",
     success: function(results){
       let updateData = results.data.updateData;
-      
 
-      ////////////////////////
       $('#modal2').modal({
         keyboard: true,
-        backdrop: "static",
+        //backdrop: "static",
         show: false,
         
       }).on('shown.bs.modal', function(event){
@@ -822,7 +814,7 @@ const create = function(e){
 
 
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 const saveRec = function(){
   pageTitle = $(".pageTitle").text();
   
@@ -858,23 +850,26 @@ const saveRec = function(){
 
 }
 
-
-
-    ///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
    
 $("#navUl").on("click", function(){
   $("#main-section").show("slow");
 });
 
-$(".card-body").on("click", function(){
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/* $(".card-body").on("click", function(){
   $("#main-section").show("slow");
   $("#sidebar").css('visibility', 'visible');
   $(".card-body").hide();
   
   let dataId = $(this).data();
   getAll(dataId);
-});
+}); */
+///////////////////////////////////////////////////////////////////////////////////////////////
+let lodaingID = {id: "nav-pers"};
+getAll(lodaingID);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //sidebar function
