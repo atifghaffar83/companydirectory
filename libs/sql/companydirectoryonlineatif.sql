@@ -13,16 +13,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for companydirectory
-CREATE DATABASE IF NOT EXISTS `epiz_27518577_XXX` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `epiz_27518577_XXX`;
+CREATE DATABASE IF NOT EXISTS `atifghaf_XXX` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `atifghaf_XXX`;
+
+-- Dumping structure for table companydirectory.location
+CREATE TABLE IF NOT EXISTS `location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table companydirectory.location: ~4 rows (approximately)
+/*!40000 ALTER TABLE `location` DISABLE KEYS */;
+INSERT INTO `location` (`id`, `name`) VALUES
+	(1, 'London'),
+	(2, 'New York'),
+	(3, 'Paris'),
+	(4, 'Munich'),
+	(5, 'Rome');
+/*!40000 ALTER TABLE `location` ENABLE KEYS */;
 
 -- Dumping structure for table companydirectory.department
 CREATE TABLE IF NOT EXISTS `department` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `locationID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (locationID) REFERENCES location(id) ON DELETE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table companydirectory.department: ~13 rows (approximately)
@@ -42,22 +59,7 @@ INSERT INTO `department` (`id`, `name`, `locationID`) VALUES
 	(12, 'Business Development', 3);
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 
--- Dumping structure for table companydirectory.location
-CREATE TABLE IF NOT EXISTS `location` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table companydirectory.location: ~4 rows (approximately)
-/*!40000 ALTER TABLE `location` DISABLE KEYS */;
-INSERT INTO `location` (`id`, `name`) VALUES
-	(1, 'London'),
-	(2, 'New York'),
-	(3, 'Paris'),
-	(4, 'Munich'),
-	(5, 'Rome');
-/*!40000 ALTER TABLE `location` ENABLE KEYS */;
 
 -- Dumping structure for table companydirectory.personnel
 CREATE TABLE IF NOT EXISTS `personnel` (
@@ -67,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `personnel` (
   `jobTitle` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `departmentID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (departmentID) REFERENCES department(id) ON DELETE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table companydirectory.personnel: ~100 rows (approximately)

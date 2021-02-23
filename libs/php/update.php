@@ -47,11 +47,11 @@
 	}
 	
 	if($_POST['title'] == "Departments"){
-		$query = 'UPDATE department SET name = "'.$_POST['name'].'", locationID = "'.$_POST['locationID'].'" WHERE department.id = '.$_POST['id'];
+		$query = 'UPDATE department SET name = "'.$_POST['edeptname'].'", locationID = "'.$_POST['elocationname'].'" WHERE department.id = '.$_POST['id'];
 	}
 	
 	if($_POST['title'] == "Locations"){
-		$query = 'UPDATE location SET name = "'.$_POST['name'].'" WHERE location.id = '.$_POST['id'];
+		$query = 'UPDATE location SET name = "'.$_POST['elocname'].'" WHERE location.id = '.$_POST['id'];
 	}
 	
 	
@@ -108,12 +108,72 @@
 
 	}
 
+	// 3rd query
+
+	$query = 'SELECT id, name from department ORDER BY 2';
+
+	$result = $conn->query($query);
+	
+	if (!$result) {
+
+		$output['status']['code'] = "400";
+		$output['status']['name'] = "executed";
+		$output['status']['description'] = "query failed";	
+		$output['data'] = [];
+
+		mysqli_close($conn);
+
+		echo json_encode($output); 
+
+		exit;
+
+	}
+   
+   	$department = [];
+
+	while ($row = mysqli_fetch_assoc($result)) {
+
+		array_push($department, $row);
+
+	}
+
+	// 4th query
+
+	$query = 'SELECT id, name from location ORDER BY 2';
+
+	$result = $conn->query($query);
+	
+	if (!$result) {
+
+		$output['status']['code'] = "400";
+		$output['status']['name'] = "executed";
+		$output['status']['description'] = "query failed";	
+		$output['data'] = [];
+
+		mysqli_close($conn);
+
+		echo json_encode($output); 
+
+		exit;
+
+	}
+   
+   	$locations = [];
+
+	while ($row = mysqli_fetch_assoc($result)) {
+
+		array_push($locations, $row);
+
+	}
+
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
 	//$output['data'] = [];
 	$output['data']['updateData'] = $updateData;
+	$output['data']['departments'] = $department;
+	$output['data']['locations'] = $locations;
 	
 	
 	mysqli_close($conn);

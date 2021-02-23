@@ -37,25 +37,25 @@
 	/* $_REQUEST['name']= "Testing";
 	$_REQUEST["locationID"]= 1; */
 	//$_POST['id'] = 101;
-/* 	$_POST['firstName'] = "atif 77";
-	$_POST['lastName'] = "gha 77";
-	$_POST['email'] = "atif77@gmail.com";
-	$_POST['jobTitle'] = "SHY Why";
-	$_POST['departmentID'] = 4;
+	/* $_POST['firstNamenew'] = "99 atif 77";
+	$_POST['lastNamenew'] = "99 gha 77";
+	$_POST['emailnew'] = "99atif77@gmail.com";
+	$_POST['jobTitlenew'] = "99 SHY Why";
+	$_POST['departmentIDnew'] = 4;
 	$_POST['title'] = "Personnel"; */
 
 	if($_POST['title'] == "Personnel"){
 		//$query = 'INSERT INTO personnel (id, firstName, lastName, jobTitle, email, departmentID) VALUES(' . $_POST["id"] . ',"' . $_POST['firstName'] . '","' . $_POST["lastName"] . '","' . $_POST["jobTitle"] . '","' . $_POST["email"] . '",' . $_POST["departmentID"] . ')';
-		$query = 'INSERT INTO personnel (firstName, lastName, jobTitle, email, departmentID) VALUES("' . $_POST['firstName'] . '","' . $_POST["lastName"] . '","' . $_POST["jobTitle"] . '","' . $_POST["email"] . '",' . $_POST["departmentID"] . ')';
+		$query = 'INSERT INTO personnel (firstName, lastName, jobTitle, email, departmentID) VALUES("' . $_POST['firstNamenew'] . '","' . $_POST["lastNamenew"] . '","' . $_POST["jobTitlenew"] . '","' . $_POST["emailnew"] . '",' . $_POST["departmentIDnew"] . ')';
 		
 	}
 	
 	if($_POST['title'] == "Departments"){
-		$query = 'INSERT INTO department (name, locationID) VALUES("' . $_POST['name'] . '",' . $_POST["locationID"] . ')';
+		$query = 'INSERT INTO department (name, locationID) VALUES("' . $_POST['ndeptname'] . '",' . $_POST["locationID"] . ')';
 	}
 	
 	if($_POST['title'] == "Locations"){
-		$query = 'INSERT INTO location (name) VALUES("' . $_POST['name'] . '")';
+		$query = 'INSERT INTO location (name) VALUES("' . $_POST['slocname'] . '")';
 		
 	}
 

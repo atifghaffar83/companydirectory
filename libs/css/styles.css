@@ -17,6 +17,9 @@ i {
     color: #fff;
 }
 
+.sidebar-sticky{
+  position: relative;
+}
 /* #main-section{
   display: none;
 }
@@ -243,6 +246,26 @@ i {
     
 }
 
+#confirmation{
+  z-index: 2001;
+}
+#nodelete{
+  z-index: 3001;
+}
+
+.fa-exclamation-triangle{
+  color: red;
+}
+
+.btnconfirm{
+    display: flex;
+    width: 100px;
+    height: 25px;
+    background-color: #00B2FF;
+    color: #fff;
+    border: 0;
+}
+
 .new{
   font-size: 16px;
   padding: 4px;
@@ -325,19 +348,37 @@ transform: translate(-50%, -50%);
   padding-left: 4px;
 }
 
+.headermain{
+  position: sticky;
+  top: 41.79px;
+  background-color: #fff;
+  z-index: 103;
+  
+}
+
 table { 
   width: 100%; 
   border-collapse: collapse; 
+  position: relative;
 }
 /* Zebra striping */
 tr:nth-of-type(odd) { 
   background: #00B2FF; 
-}
-th { 
   
+}
+
+
+th { 
+  position: -webkit-sticky;
+  position: sticky;
+  top: 159px;
+  z-index: 3;
+  background-color: #00B2FF;
   color: white; 
   font-weight: bold; 
 }
+
+
 td, th { 
   padding: 6px; 
   border: 1px solid #ccc; 
@@ -364,15 +405,9 @@ td.action{
 }
 
 /* ////////////////////////////////////////////// */
-/* .modal.fade{
-  opacity:1;
+.alert-warning, .alert-success{
+  display: none;
 }
-.modal.fade .modal-dialog {
-   -webkit-transform: translate(0);
-   -moz-transform: translate(0);
-   transform: translate(0);
-}
- */
 /* media query for deive width 1200px or less ************************************************************/
 @media (max-width: 1200px) {
   
