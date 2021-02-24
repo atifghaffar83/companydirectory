@@ -67,7 +67,7 @@ include "libs/includes/header.php";
                   </dt>
                   <dd>
                       <div class="mutliSelect ddlocul">
-                          <ul class="locul">
+                          <ul class="locul list-group">
                               <li><input type="checkbox" value="Glasgow" name="Glasgow" /><span>Glasgow</span></li>
                               <li><input type="checkbox" value="London" name="london" /><span>London</span></li>
                               <li><input type="checkbox" value="Manchester" name="manchester" /><span>Manchester</span></li>

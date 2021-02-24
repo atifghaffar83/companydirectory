@@ -1,133 +1,5 @@
-// Returns an array of maxLength (or less) page numbers
-// where a 0 in the returned array denotes a gap in the series.
-// Parameters:
-//   totalPages:     total number of pages
-//   page:           current page
-//   maxLength:      maximum size of returned array
-//$(document).ready(()=>{
-/* function getPageList(totalPages, page, maxLength) {
-    if (maxLength < 5) throw "maxLength must be at least 5";
-  
-    function range(start, end) {
-      return Array.from(Array(end - start + 1), (_, i) => i + start);
-    }
-  
-    var sideWidth = maxLength < 9 ? 1 : 2;
-    var leftWidth = (maxLength - sideWidth * 2 - 3) >> 1;
-    var rightWidth = (maxLength - sideWidth * 2 - 2) >> 1;
-    if (totalPages <= maxLength) {
-      // no breaks in list
-      return range(1, totalPages);
-    }
-    if (page <= maxLength - sideWidth - 1 - rightWidth) {
-      // no break on left of page
-      return range(1, maxLength - sideWidth - 1)
-        .concat([0])
-        .concat(range(totalPages - sideWidth + 1, totalPages));
-    }
-    if (page >= totalPages - sideWidth - 1 - rightWidth) {
-      // no break on right of page
-      return range(1, sideWidth)
-        .concat([0])
-        .concat(
-          range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages)
-        );
-    }
-    // Breaks on both sides
-    return range(1, sideWidth)
-      .concat([0])
-      .concat(range(page - leftWidth, page + rightWidth))
-      .concat([0])
-      .concat(range(totalPages - sideWidth + 1, totalPages));
-  } */
-  
   $(function() {
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    /* var numberOfItems;
-    const pagination = function(allrecords){
-      
-    
-      // Number of items and limits the number of items per page
-      //var numberOfItems = $("#jar .content").length;
-  
-      var limitPerPage = 16;
-      
-      // Total pages rounded upwards
-      var totalPages = Math.ceil(numberOfItems / limitPerPage);
-      // Number of buttons at the top, not counting prev/next,
-      // but including the dotted buttons.
-      // Must be at least 5:
-      var paginationSize = 7;
-      var currentPage;
-    
-      function showPage(whichPage) {
-        if (whichPage < 1 || whichPage > totalPages) return false;
-        currentPage = whichPage;
-        $("#jar .content")
-          .hide()
-          .slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage)
-          .show();
-        // Replace the navigation items (not prev/next):
-        $(".pagination li").slice(1, -1).remove();
-        getPageList(totalPages, currentPage, paginationSize).forEach(item => {
-          $("<li>")
-            .addClass(
-              "page-item " +
-                (item ? "current-page " : "") +
-                (item === currentPage ? "active " : "")
-            )
-            .append(
-              $("<a>")
-                .addClass("page-link")
-                .attr({
-                  href: "javascript:void(0)"
-                })
-                .text(item || "...")
-            )
-            .insertBefore("#next-page");
-        });
-        return true;
-      }
-    
-      // Include the prev/next buttons:
-      $(".pagination").append(
-        $("<li>").addClass("page-item").attr({ id: "previous-page" }).append(
-          $("<a>")
-            .addClass("page-link")
-            .attr({
-              href: "javascript:void(0)"
-            })
-            .text("Prev")
-        ),
-        $("<li>").addClass("page-item").attr({ id: "next-page" }).append(
-          $("<a>")
-            .addClass("page-link")
-            .attr({
-              href: "javascript:void(0)"
-            })
-            .text("Next")
-        )
-      );
-      // Show the page links
-      $("#jar").show();
-      showPage(1);
-    
-      // Use event delegation, as these items are recreated later
-      $(document).on("click", ".pagination li.current-page:not(.active)", function() {
-        return showPage(+$(this).text());
-      });
-      $("#next-page").on("click", function() {
-        return showPage(currentPage + 1);
-      });
-    
-      $("#previous-page").on("click", function() {
-        return showPage(currentPage - 1);
-      });
-      $(".pagination").on("click", function() {
-        $("html,body").animate({ scrollTop: 0 }, 0);
-      });
-    } */
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
       //dropdown filters code
       $(".dropdown dt a.department").on('click', function() {
@@ -261,7 +133,6 @@ $(".timenav").html(`<b>${navTime}</b>`);
 
 /////////////////////////////////////////////////////////////////////////////////////
 
-//all perosonnel data ajax calling php file
 const getAll = function(e){
   //e.preventDefault();
   
@@ -494,57 +365,7 @@ $('#confirmation').modal({
 
 });
 
-//////////////////////////////////////////////////////////////////////
- /*  $('#modal1').modal({
-      keyboard: true,
-      //backdrop: "static",
-      show: false,
-      
-  }).on('shown.bs.modal', function(event){
-        let pageTitle = $(".pageTitle").text();
-        let getIdFromRow = $(event.relatedTarget);
-        let data = getIdFromRow.data();
-        let text = getIdFromRow.text();
 
-        let html = `<form>`;
-        for (const [key, value] of Object.entries(data)) {
-          if(!(key == "target") && !(key == "toggle") && !(key == "Id")){
-          html += `
-          <div class="form-group row">
-            <label for="${key}" class="col-sm-2 col-form-label"  ${(key == "id") || (key == "Locationid")?"hidden":""}><strong>${key}</strong></label>
-            <div class="col-sm-10">
-              <input type="text" readonly class="form-control-plaintext ${key}" id="${key}" value="${value}" ${(key == "id") || (key == "Locationid")?"hidden":""}>
-            </div>
-          </div>`;
-          
-          }
-          
-        }
-        html += `</form>`;
-        
-      //make your ajax call populate items or what even you need
-      if(pageTitle == "Personnel"){
-        $('#exampleModalLongTitle').html(`${data['Firstname']} ${data['Lastname']}`);
-      } else if(pageTitle == "Departments"){
-        $('#exampleModalLongTitle').html(`${data['Name']}`);
-      } else if(pageTitle == "Locations"){
-        $('#exampleModalLongTitle').html(`${data['Name']}`);
-      } 
-      
-      
-      
-      $('.edit').attr("data-id",data['Id']);
-      $('.delete').attr("data-id",data['Id']);
-      $('.update').attr("data-id",data['Id']);
-    //  $('.formModal').html(`${html}`);
-
-      $('.edit').show();
-      $('.delete').show();
-      $('.update').hide();
-      $('.save').hide();
-          
-  });
- */
 ///////////////////////////////////////////////////////////////////////////////////////
 const editRecord4 = function(event){
   
@@ -627,42 +448,14 @@ const editRecord4 = function(event){
             
           }
 
-          
-          //html += `</form>`;
-    
-          //$(".formModal").html(html);
           $('.update').attr("data-id",tableRow['id']);
           $('.update').show();
           
-
-          /* let htmlSelect = "";
-          if(pageTitle == "Personnel"){
-            htmlSelect = `<div class="form-group row">
-          <label for="departmentID" class="col-sm-2 col-form-label"><strong>Department</strong></label>
-          <div class="col-sm-10"> 
-          <select class="custom-select" name="departmentID" id="departmentID">`;
-            departments.forEach(option=>{
-              htmlSelect += `<option value="${option.id}" data-id="${option.id}" ${option.id==departmentID ? "selected":""}>${option.name}</option>`;
-            });
-            
-          } 
-          else if(pageTitle == "Departments"){
-            htmlSelect = `<div class="form-group row">
-          <label for="locationID" class="col-sm-2 col-form-label"><strong>Location</strong></label>
-          <div class="col-sm-10"> 
-          <select class="custom-select" name="locationID" id="locationID">`;
-            locations.forEach(option=>{
-              htmlSelect += `<option value="${option.id}" data-id="${option.id}" ${option.id==locationID ? "selected":""}>${option.name}</option>`;
-            });
-          }
-          htmlSelect += "</Select></div>"; */
-          
-          //pageTitle == "Personnel" || pageTitle == "Departments" ? $(".formModal4").append(htmlSelect) : "";
           
           
         } else if(dataTxt == "Delete"){
           if(typeof results.data.no.count === "undefined" || results.data.no.count == 0){
-            console.log("undefined result no count");
+            
             $(".modal").modal("hide");
             $(".alert-warning").show();
             setTimeout(function(){
@@ -671,13 +464,13 @@ const editRecord4 = function(event){
             
             $('.alert').alert();
           } else{
-            console.log(results.data.no.count);
+            
             let recFound = results.data.no.count;
             let pg = pageTitle == 'Departments' ? "Personnel" : "Departments";
             $("#confirmation").modal("hide");
             $('#nodelete').modal();
             $('#nodelete').modal().on('shown.bs.modal', function(){
-              console.log("Do not delete modal");
+              
               
               $("#nodelete .no").html(recFound);
               $("#nodelete .cat").html(pg);
@@ -704,21 +497,7 @@ const editRecord4 = function(event){
           }
         }
       
-    } else if(results.status.code == "400"){
-      console.log("Can not delete data depenedent records");
-      /* $('#nodelete').modal({
-        keyboard: true,
-        show: false,
-        
-      }).on('show.bs.modal', function(event){
-        
-        
-      
-      }); */
-      $("#confirmation").modal("hide");
-      $('#nodelete').modal();
-
-    }
+    } 
   }, 
   error: function(jqXHR, textStatus, errorThrown) {
     // your error code
@@ -729,160 +508,6 @@ const editRecord4 = function(event){
 
   }
 
-///////////////////////////////////////////////////////////////////////////////////////
-
-/* const editRecord = function(e){
-  
-  e.preventDefault();
-  let url, dataId, html, idDelete, pageTitle, dataTxt = "";
-  
-  dataId = $(this).data('id');
-  dataTxt = $(this).text();
-  pageTitle = $(".pageTitle").text();
-  //dataId = $(e.currentTarget).attr('data-id');
-  console.log(dataId);
-  console.log(dataTxt);
-  console.log(pageTitle);
-  //let dataTxt = $(e.currentTarget).text();
-  //let pageTitle = $(".pageTitle").text();
-  
-  switch(dataTxt){
-    case 'Edit':
-      url = "./libs/php/getPersonnel.php";
-      data = {
-        id: dataId,
-        btnAction: dataTxt,
-        title: pageTitle
-      };
-      
-      break;
-    case 'Delete':
-      url = "./libs/php/deleteByID.php";
-      data = {
-        id: dataId, 
-        btnAction: dataTxt,
-        title: pageTitle
-      };
-      break;
-   
-  }
-
-   $.ajax({
-    url: url,
-    type: "POST",
-    data: data,
-    dataType: "json",
-    success: function(results){
-      
-      if (results.status.name == "ok"){
-        if(dataTxt == "Edit"){
-          
-          let tableRow = results.data.tableRow[0];
-         // let departmentID = tableRow.departmentID;
-          let departments = results.data.departments;
-          let locations = results.data.locations;
-          //let locationID = locations.locationID;
-          let locationID, departmentID;
-
-
-        
-          html = `<form>`;
-          if(pageTitle == "Personnel"){
-            departmentID = tableRow.departmentID;
-            for (const [key, value] of Object.entries(tableRow)) {
-              if(!(key == "departmentID")){
-              html += `<div class="form-group row" ${(key == "id")?"hidden":""}>
-              <label for="${key}" class="col-sm-2 col-form-label"><strong>${key}</strong></label>
-              <div class="col-sm-10">
-              <input type="text" ${!(key == "id") ? "contenteditable" : "readonly"} class="form-control-plaintext ${key}" id="${key}" name="${key}" value="${value}">
-              </div>
-          </div>`;
-            } 
-          }
-          } else if(pageTitle == "Departments"){
-            locationID = tableRow.locationID;
-            for (const [key, value] of Object.entries(tableRow)) {
-              if(!(key == "locationID")){
-              html += `<div class="form-group row" ${(key == "id")?"hidden":""}>
-              <label for="${key}" class="col-sm-2 col-form-label"><strong>${key}</strong></label>
-              <div class="col-sm-10">
-              <input type="text" ${!(key == "id") ? "contenteditable" : "readonly"} class="form-control-plaintext ${key}" id="${key}" name="${key}" value="${value}">
-              </div>
-          </div>`;
-            } 
-          }
-          } else if(pageTitle == "Locations"){
-            
-            for (const [key, value] of Object.entries(tableRow)) {
-              //if(!(key == "locationID")){
-              html += `<div class="form-group row" ${(key == "id")?"hidden":""}>
-              <label for="${key}" class="col-sm-2 col-form-label"><strong>${key}</strong></label>
-              <div class="col-sm-10">
-              <input type="text" ${!(key == "id") ? "contenteditable" : "readonly"} class="form-control-plaintext ${key}" id="${key}" name="${key}" value="${value}">
-              </div>
-          </div>`;
-            //} 
-          }
-          }
-            
-
-          html += `</form>`;
-    
-          $(".formModal").html(html);
-          $('.update').attr("data-id",tableRow['id']);
-          
-
-          let htmlSelect = "";
-          if(pageTitle == "Personnel"){
-            htmlSelect = `<div class="form-group row">
-          <label for="departmentID" class="col-sm-2 col-form-label"><strong>Department</strong></label>
-          <div class="col-sm-10"> 
-          <select class="custom-select" name="departmentID" id="departmentID">`;
-            departments.forEach(option=>{
-              htmlSelect += `<option value="${option.id}" data-id="${option.id}" ${option.id==departmentID ? "selected":""}>${option.name}</option>`;
-            });
-          } else if(pageTitle == "Departments"){
-            htmlSelect = `<div class="form-group row">
-          <label for="locationID" class="col-sm-2 col-form-label"><strong>Location</strong></label>
-          <div class="col-sm-10"> 
-          <select class="custom-select" name="locationID" id="locationID">`;
-            locations.forEach(option=>{
-              htmlSelect += `<option value="${option.id}" data-id="${option.id}" ${option.id==locationID ? "selected":""}>${option.name}</option>`;
-            });
-          }
-          htmlSelect += "</Select></div>";
-          
-          pageTitle == "Personnel" || pageTitle == "Departments" ? $(".formModal").append(htmlSelect) : "";
-          
-          
-        } else if(dataTxt === "Delete"){
-          $(".formModal").html("<span>Deleted</span>");
-//          getAll();
-          if(pageTitle == "Departments"){
-            let dataID = {id: "nav-dept"};
-            getAll(dataID);
-          } else if(pageTitle == "Locations"){
-            let dataID = {id: "nav-loc"};
-            getAll(dataID);
-          } else{
-            let dataID = {id: "nav-pers"};
-            getAll(dataID);
-          }
-        }
-      
-    }
-  }, 
-  error: function(jqXHR, textStatus, errorThrown) {
-    // your error code
-    console.log("No data coming from editRecord.php file");
-}
-
-  });
-  $(".update").show();
-  $(".delete").hide();
-  $(".edit").hide();
- 
-} */
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 const update = function(e){
@@ -946,23 +571,6 @@ const update = function(e){
             $(".elocname").val(personRow['name']);
           }
 
-          /* html = `<form>`;
-            for (const [key, value] of Object.entries(personRow)) {
-              
-              html += `<div class="form-group row" ${(key == "id") || (key == "departmentID")  || (key == "locationID")?"hidden":""}>
-              <label for="${key}" class="col-sm-2 col-form-label"><strong>${key}</strong></label>
-              <div class="col-sm-10">
-              <input type="text" contenteditable class="form-control-plaintext ${key}" id="${key}" name="${key}" value="${value}">
-              </div>
-          </div>`;
-           
-          }
-            html += `</form>`;
-    
-            $(".formModal").html(html); */
-
-    //let pageTitle = $(".pageTitle").text();
-
       if(pageTitle == "Personnel"){
         $('#exampleModalLongTitle4').html(`${personRow['firstName']} ${personRow['lastName']}`);
       } else if(pageTitle == "Departments"){
@@ -996,13 +604,6 @@ const update = function(e){
  
 }
 
-//$('#modal4').on('hidden.bs.modal', function () {
-/*   $('#modal4').on('hidden.bs.modal', function () {
-//  $(this).find('form').trigger('reset');
-  console.log("modal4 closing");
-  console.log(this);
-  $(".modal-body input").val("")
-}); */
 ///////////////////////////////////////////////////////////////////////////////////////////////
 const create = function(e){
   let url, data, pageTitle;
@@ -1016,26 +617,13 @@ const create = function(e){
 } else if(pageTitle == "Locations"){
   $(".datatarget").attr("data-target", "#modallocsave");
 }
-  //$("#formModal5:input").val("");
-  //$(this).closest('form').find("input[type=text], textarea").val("");
+ 
   $('#nfirstname').val('');
   $('#nlastname').val('');
   $('#njobtitle').val('');
   $('#nemail').val('');
   $('#ndepartment').val('');
   
-  /* switch(pageTitle){
-    case "Personnel":
-      
-      url= "./libs/php/newLocDept.php";
-      data = {title: pageTitle};
-      break;
-    case "Departments":
-      url= "./libs/php/newLocDept.php";
-      data = {title: pageTitle};
-    break;
-    
-  } */
 
   $.ajax({
     url: "./libs/php/newLocDept.php",
@@ -1068,70 +656,7 @@ const create = function(e){
           }
 
           
-     /*  $('#modal2').modal({
-        keyboard: true,
-        //backdrop: "static",
-        show: false,
-        
-      }).on('shown.bs.modal', function(event){
-      
-      
-      let html = `<form>`;
-              if(pageTitle == "Personnel"){
-                
-                
-              } else if(pageTitle == "Departments"){
-                
-              } 
-          
-          //html += `</form>`;
-          
-          //$('.formModalNew').html(html);
-          
-          $('.save').show(); */
-
-          /////////////////////////////////
-          /* let htmlNew ="";
-        
-      if(pageTitle == "Personnel"){
-      
-        htmlNew += `
-              <div class="form-group row">
-                <label for="departmentID" class="col-sm-2 col-form-label"><strong>Department</strong></label>
-                <div class="col-sm-10">
-                  <select class="custom-select" name="departmentID" id="departmentID">`;
-                  updateData.forEach(option=>{
-            htmlNew += `<option value="${option.id}" data-id="${option.id}"} >${option.name}</option>`;
-                  });
-          htmlNew +=`</select></div></div>`;
-          
-          $('#exampleModalLongTitleNew').html(`Create New Personnel`);
-        $('.formModalNew').append(htmlNew);
-      
-        } else if(pageTitle == "Departments"){
-          htmlNew += `
-                <div class="form-group row">
-                  <label for="locationID" class="col-sm-2 col-form-label"><strong>Location</strong></label>
-                  <div class="col-sm-10">
-                    <select class="custom-select" name="locationID" id="locationID">`;
-                    updateData.forEach(option=>{
-              htmlNew += `<option value="${option.id}" data-id="${option.id}"}>${option.name}</option>`;
-                    });
-            
-            htmlNew +=`</select></div></div>`;
-          $('#exampleModalLongTitleNew').html(`Create New Department`);
-          $('.formModalNew').append(htmlNew);
-      
-          } */
-      
-      //});
-      ///////////////////////
-      
-          //pageTitle == "Personnel" || pageTitle == "Departments" ? $('.formModalNew').append(htmlNew) : "";
-    
-      
-      ////////////////////////
-      
+     
   
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -1208,16 +733,6 @@ $("#navUl").on("click", function(){
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-
-/* $(".card-body").on("click", function(){
-  $("#main-section").show("slow");
-  $("#sidebar").css('visibility', 'visible');
-  $(".card-body").hide();
-  
-  let dataId = $(this).data();
-  getAll(dataId);
-}); */
-///////////////////////////////////////////////////////////////////////////////////////////////
 let lodaingID = {id: "nav-pers"};
 getAll(lodaingID);
 
@@ -1241,9 +756,6 @@ $(".getalldata").on("click", getAll);
 $(".allDept").on("click", getAll);
 $(".allLoc").on("click", getAll);
 $(".edit").on("click", editRecord4);
-/* $(".delete").on("click", function(e){
-  if(confirm('Are you sure?')) editRecord4(e);
-}); */
 $(".del-ok").on("click", function(e){
   editRecord4(e);
 });

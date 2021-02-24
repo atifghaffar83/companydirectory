@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <title>Company Directory</title>
     <!-- all css links -->
     <!-- bootstrap css link -->
@@ -10,6 +11,7 @@
     <link href="libs/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link href="libs/css/cloudflare.css" rel="stylesheet">
+    <!-- <link href="libs/css/fontawesome.css" rel="stylesheet"> -->
     <link href="libs/css/fontawesome.min.css" rel="stylesheet">
     <link href="libs/css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="libs/css/styles.css">
